@@ -2,7 +2,7 @@
 # https://github.com/firebase/firebase-tools
 
 name: Deploy to Firebase Hosting on merge
-'on':
+"on":
   push:
     branches:
       - main
@@ -12,9 +12,10 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - run: yarn && yarn run build
+      - run: echo '${{ secrets.BLIB_DEV_ENV }}' > ./build/.env
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
-          repoToken: '${{ secrets.GITHUB_TOKEN }}'
-          firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_OPENHOUSE_DEV_EB020 }}'
+          repoToken: "${{ secrets.GITHUB_TOKEN }}"
+          firebaseServiceAccount: "${{ secrets.FIREBASE_SERVICE_ACCOUNT_OPENHOUSE_DEV_EB020 }}"
           channelId: live
           projectId: openhouse-dev-eb020
