@@ -1,26 +1,37 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { Box, Card, Container } from "@mui/material";
+import useFirebase from "./hooks/useFirebase";
+import SignIn from "./cards/SignIn";
+import UserCard from "./cards/User";
 
-function App() {
+const App = () => {
+  const { user } = useFirebase();
+
+  const isLoggedin = !!user;
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
+    <Box
+      sx={{
+        height: "100vh",
+        justifyContent: "center",
+        alignItems: "center",
+        display: "flex",
+        backgroundColor: "background.default",
+      }}
+    >
+      <Container maxWidth="sm">
+        <Card
+          sx={{
+            padding: "48px 24px",
+            justifyContent: "center",
+            alignItems: "center",
+            display: "flex",
+          }}
         >
-          Learn React
-        </a>
-      </header>
-    </div>
+          {!isLoggedin ? <SignIn /> : <UserCard user={user} />}
+        </Card>
+      </Container>
+    </Box>
   );
-}
+};
 
 export default App;
